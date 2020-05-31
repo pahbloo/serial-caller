@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Números do WhatsApp</title>
+        <style>
+            li {
+                margin-bottom: 1em
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Números do WhatsApp</h1>
+        <ul id="list"></ul>
+        <script>
+            const prefix = '55629956784'
+            const urlWA = 'https://api.whatsapp.com/send?phone='
+            const urlTel = 'tel:+'
+
+            let items = []
+
+            for (i=0; i<10; i++) {
+                for (j=0; j<10; j++) {
+                    let item = document.createElement('li')
+                    let text = String(i) + String(j)
+                    item.innerText = text + ": "
+
+                    let linkTel = document.createElement('a')
+                    linkTel.href = urlTel + prefix + text
+                    linkTel.innerText = "Telefone"
+                    item.appendChild(linkTel)
+
+                    item.appendChild(document.createTextNode(" "))
+
+                    let linkWA = document.createElement('a')
+                    linkWA.href = urlWA + prefix + text
+                    linkWA.innerText = "WhatsApp"
+                    item.appendChild(linkWA)
+
+                    items.push(item)
+                }
+            }
+
+            let list = document.querySelector('#list')
+            items.forEach((item) => list.appendChild(item))
+        </script>
+    </body>
+</html>
