@@ -14,7 +14,9 @@
         <h1>Números do WhatsApp</h1>
         <ul id="list"></ul>
         <script>
-            const prefix = '55629956784'
+            const params = (new URL(document.location)).searchParams
+            
+            const prefix = params.get('prefix') || '0'
             const urlWA = 'https://api.whatsapp.com/send?phone='
             const urlTel = 'tel:+'
 
