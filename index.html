@@ -20,29 +20,31 @@
             const urlWA = 'https://api.whatsapp.com/send?phone='
             const urlTel = 'tel:+'
 
-            let items = []
+            let numbers = []
 
-            for (i=0; i<10; i++) {
-                for (j=0; j<10; j++) {
-                    let item = document.createElement('li')
-                    let text = String(i) + String(j)
-                    item.innerText = text + ": "
-
-                    let linkTel = document.createElement('a')
-                    linkTel.href = urlTel + prefix + text
-                    linkTel.innerText = "Telefone"
-                    item.appendChild(linkTel)
-
-                    item.appendChild(document.createTextNode(" "))
-
-                    let linkWA = document.createElement('a')
-                    linkWA.href = urlWA + prefix + text
-                    linkWA.innerText = "WhatsApp"
-                    item.appendChild(linkWA)
-
-                    items.push(item)
-                }
+            for (i=0; i<100; i++) {
+                let lastDigits = String(i).padStart(2, '0')
+                numbers.push(lastDigits)
             }
+
+            let items = numbers.map(function(lastDigits) {
+                let item = document.createElement('li')
+                item.innerText = lastDigits + ": "
+
+                let linkTel = document.createElement('a')
+                linkTel.href = urlTel + prefix + lastDigits
+                linkTel.innerText = "Telefone"
+                item.appendChild(linkTel)
+
+                item.appendChild(document.createTextNode(" "))
+
+                let linkWA = document.createElement('a')
+                linkWA.href = urlWA + prefix + lastDigits
+                linkWA.innerText = "WhatsApp"
+                item.appendChild(linkWA)
+
+                return item
+            })
 
             let list = document.querySelector('#list')
             items.forEach((item) => list.appendChild(item))
