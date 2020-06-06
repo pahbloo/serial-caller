@@ -21,10 +21,8 @@
             const urlTel = 'tel:+'
 
             let numbers = []
-
             for (i=0; i<100; i++) {
-                let lastDigits = String(i).padStart(2, '0')
-                numbers.push(lastDigits)
+                numbers[i] = String(i).padStart(2, '0')
             }
 
             let items = numbers.map(function(lastDigits) {
