@@ -12,13 +12,17 @@
     </head>
     <body>
         <h1>Números do WhatsApp</h1>
+        <p id="description"></p>
         <ul id="list"></ul>
         <script>
             const params = (new URL(document.location)).searchParams
-            
             const prefix = params.get('prefix') || '0'
             const urlWA = 'https://api.whatsapp.com/send?phone='
             const urlTel = 'tel:+'
+            const copytext = `Links para os telefones a partir de <strong>+${prefix}00</strong> até <strong>+${prefix}99</strong>`
+
+            const description = document.querySelector('#description')
+            description.innerHTML = copytext
 
             let numbers = []
             for (i=0; i<100; i++) {
