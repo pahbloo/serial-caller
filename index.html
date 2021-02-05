@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Números do WhatsApp</title>
-        <style>
-            li {
-                margin-bottom: 1em
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Números do WhatsApp</h1>
-        <p id="description"></p>
-        <ul id="list"></ul>
-        <script>
-            const params = (new URL(document.location)).searchParams
-            const prefix = params.get('prefix') || '0'
-            const urlWA = 'https://api.whatsapp.com/send?phone='
-            const urlTel = 'tel:+'
-            const copytext = `Links para os telefones a partir de <strong>+${prefix}00</strong> até <strong>+${prefix}99</strong>`
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Números do WhatsApp</title>
+    <style>
+      li {
+        margin-bottom: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Números do WhatsApp</h1>
+    <p id="description"></p>
+    <ul id="list"></ul>
+    <script>
+      const params = new URL(document.location).searchParams;
+      const prefix = params.get("prefix") || "0";
+      const urlWA = "https://api.whatsapp.com/send?phone=";
+      const urlTel = "tel:+";
+      const copytext = `Links para os telefones a partir de <strong>+${prefix}00</strong> até <strong>+${prefix}99</strong>`;
 
-            const description = document.querySelector('#description')
-            description.innerHTML = copytext
+      const description = document.querySelector("#description");
+      description.innerHTML = copytext;
 
-            let numbers = []
-            for (i=0; i<100; i++) {
-                numbers[i] = String(i).padStart(2, '0')
-            }
+      let numbers = [];
+      for (i = 0; i < 100; i++) {
+        numbers[i] = String(i).padStart(2, "0");
+      }
 
-            let items = numbers.map(function(lastDigits) {
-                let item = document.createElement('li')
-                item.innerText = lastDigits + ": "
+      let items = numbers.map(function (lastDigits) {
+        let item = document.createElement("li");
+        item.innerText = lastDigits + ": ";
 
-                let linkTel = document.createElement('a')
-                linkTel.href = urlTel + prefix + lastDigits
-                linkTel.innerText = "Telefone"
-                item.appendChild(linkTel)
+        let linkTel = document.createElement("a");
+        linkTel.href = urlTel + prefix + lastDigits;
+        linkTel.innerText = "Telefone";
+        item.appendChild(linkTel);
 
-                item.appendChild(document.createTextNode(" "))
+        item.appendChild(document.createTextNode(" "));
 
-                let linkWA = document.createElement('a')
-                linkWA.href = urlWA + prefix + lastDigits
-                linkWA.innerText = "WhatsApp"
-                item.appendChild(linkWA)
+        let linkWA = document.createElement("a");
+        linkWA.href = urlWA + prefix + lastDigits;
+        linkWA.innerText = "WhatsApp";
+        item.appendChild(linkWA);
 
-                return item
-            })
+        return item;
+      });
 
-            let list = document.querySelector('#list')
-            items.forEach((item) => list.appendChild(item))
-        </script>
-    </body>
+      let list = document.querySelector("#list");
+      items.forEach((item) => list.appendChild(item));
+    </script>
+  </body>
 </html>
