@@ -11,41 +11,43 @@
     <p id="description"></p>
     <ul id="list"></ul>
     <script>
+      function phoneList(prefix) {
+        const urlWA = "https://api.whatsapp.com/send?phone=";
+        const urlTel = "tel:+";
+        const copytext = `Links para os telefones a partir de <strong>+${prefix}<big>00</big></strong> até <strong>+${prefix}<big>99</big></strong>`;
+        const description = document.querySelector("#description");
+        description.innerHTML = copytext;
+
+        let numbers = [];
+        for (i = 0; i < 100; i++) {
+          numbers[i] = String(i).padStart(2, "0");
+        }
+
+        let items = numbers.map(function (lastDigits) {
+          let item = document.createElement("li");
+          item.innerText = lastDigits + ": ";
+
+          let linkTel = document.createElement("a");
+          linkTel.href = urlTel + prefix + lastDigits;
+          linkTel.innerText = "Telefone";
+          item.appendChild(linkTel);
+
+          item.appendChild(document.createTextNode(" "));
+
+          let linkWA = document.createElement("a");
+          linkWA.href = urlWA + prefix + lastDigits;
+          linkWA.innerText = "WhatsApp";
+          item.appendChild(linkWA);
+
+          return item;
+        });
+
+        let list = document.querySelector("#list");
+        items.forEach((item) => list.appendChild(item));
+      }
       const params = new URL(document.location).searchParams;
       const prefix = params.get("prefix") || "0";
-      const urlWA = "https://api.whatsapp.com/send?phone=";
-      const urlTel = "tel:+";
-      const copytext = `Links para os telefones a partir de <strong>+${prefix}00</strong> até <strong>+${prefix}99</strong>`;
-
-      const description = document.querySelector("#description");
-      description.innerHTML = copytext;
-
-      let numbers = [];
-      for (i = 0; i < 100; i++) {
-        numbers[i] = String(i).padStart(2, "0");
-      }
-
-      let items = numbers.map(function (lastDigits) {
-        let item = document.createElement("li");
-        item.innerText = lastDigits + ": ";
-
-        let linkTel = document.createElement("a");
-        linkTel.href = urlTel + prefix + lastDigits;
-        linkTel.innerText = "Telefone";
-        item.appendChild(linkTel);
-
-        item.appendChild(document.createTextNode(" "));
-
-        let linkWA = document.createElement("a");
-        linkWA.href = urlWA + prefix + lastDigits;
-        linkWA.innerText = "WhatsApp";
-        item.appendChild(linkWA);
-
-        return item;
-      });
-
-      let list = document.querySelector("#list");
-      items.forEach((item) => list.appendChild(item));
+      phoneList(prefix);
     </script>
   </body>
 </html>
