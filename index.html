@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Números do WhatsApp</title>
     <link rel="stylesheet" href="css/pico.min.css" />
+    <style>
+      .whatsapp {
+        background-color: rgb(18, 140, 126);
+        border-color: rgb(18, 140, 126);
+      }
+    </style>
   </head>
   <body class="container">
     <h1>Números do WhatsApp</h1>
     <p id="description"></p>
-    <ul id="list"></ul>
+    <div id="list"></div>
     <script>
       function phoneList(prefix) {
         const urlWA = "https://api.whatsapp.com/send?phone=";
@@ -24,10 +30,10 @@
 
           detailsList += "<details><summary>";
           detailsList += `+${prefix}<big>${sufix}</big>`;
-          detailsList += "</summary><p>";
-          detailsList += `<a href='tel:+${prefix}${sufix}'>Telefone</a> `;
-          detailsList += `<a href='https://api.whatsapp.com/send?phone=${prefix}${sufix}'>WhatsApp</a>`;
-          detailsList += "</p></details>";
+          detailsList += "</summary><div class='grid'>";
+          detailsList += `<a role='button' href='tel:+${prefix}${sufix}'>Telefone</a> `;
+          detailsList += `<a role='button' class='whatsapp' href='https://api.whatsapp.com/send?phone=${prefix}${sufix}'>WhatsApp</a>`;
+          detailsList += "</div></details>";
         }
 
         let list = document.querySelector("#list");
