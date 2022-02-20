@@ -6,6 +6,10 @@
     <title>Números do WhatsApp</title>
     <link rel="stylesheet" href="css/pico.min.css" />
     <style>
+      .mt-1rem {
+        margin-top: 1rem;
+      }
+
       .whatsapp {
         background-color: rgb(18, 140, 126);
         border-color: rgb(18, 140, 126);
@@ -31,8 +35,8 @@
           detailsList += "<details><summary>";
           detailsList += `+${prefix}<big>${sufix}</big>`;
           detailsList += "</summary><div class='grid'>";
-          detailsList += `<a role='button' href='tel:+${prefix}${sufix}'>Telefone</a> `;
-          detailsList += `<a role='button' class='whatsapp' href='https://api.whatsapp.com/send?phone=${prefix}${sufix}'>WhatsApp</a>`;
+          detailsList += `<a role='button' class='mt-1rem' href='tel:+${prefix}${sufix}'>Telefone</a> `;
+          detailsList += `<a role='button' class='mt-1rem whatsapp' href='https://api.whatsapp.com/send?phone=${prefix}${sufix}'>WhatsApp</a>`;
           detailsList += "</div></details>";
         }
 
