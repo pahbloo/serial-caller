@@ -6,7 +6,7 @@
     <title>Números do WhatsApp</title>
     <link rel="stylesheet" href="css/pico.min.css" />
   </head>
-  <body>
+  <body class="container">
     <h1>Números do WhatsApp</h1>
     <p id="description"></p>
     <ul id="list"></ul>
@@ -18,32 +18,20 @@
         const description = document.querySelector("#description");
         description.innerHTML = copytext;
 
-        let numbers = [];
-        for (i = 0; i < 100; i++) {
-          numbers[i] = String(i).padStart(2, "0");
+        let detailsList = "";
+        for (i = 0; i <= 99; i++) {
+          sufix = String(i).padStart(2, "0");
+
+          detailsList += "<details><summary>";
+          detailsList += `+${prefix}<big>${sufix}</big>`;
+          detailsList += "</summary><p>";
+          detailsList += `<a href='tel:+${prefix}${sufix}'>Telefone</a> `;
+          detailsList += `<a href='https://api.whatsapp.com/send?phone=${prefix}${sufix}'>WhatsApp</a>`;
+          detailsList += "</p></details>";
         }
 
-        let items = numbers.map(function (lastDigits) {
-          let item = document.createElement("li");
-          item.innerText = lastDigits + ": ";
-
-          let linkTel = document.createElement("a");
-          linkTel.href = urlTel + prefix + lastDigits;
-          linkTel.innerText = "Telefone";
-          item.appendChild(linkTel);
-
-          item.appendChild(document.createTextNode(" "));
-
-          let linkWA = document.createElement("a");
-          linkWA.href = urlWA + prefix + lastDigits;
-          linkWA.innerText = "WhatsApp";
-          item.appendChild(linkWA);
-
-          return item;
-        });
-
         let list = document.querySelector("#list");
-        items.forEach((item) => list.appendChild(item));
+        list.innerHTML = detailsList;
       }
       const params = new URL(document.location).searchParams;
       const prefix = params.get("prefix") || "0";
