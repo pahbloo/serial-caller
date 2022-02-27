@@ -17,14 +17,14 @@
     </style>
   </head>
   <body class="container">
-    <div id="app">
-      <header class="container">
-        <hgroup>
-          <h1>Serial Caller 📞⏩📞⏩</h1>
-          <h2>Ligue para números sequenciais de forma rápida</h2>
-        </hgroup>
-      </header>
+    <header class="container">
+      <hgroup>
+        <h1>Serial Caller 📞⏩📞⏩</h1>
+        <h2>Ligue para números sequenciais de forma rápida</h2>
+      </hgroup>
+    </header>
 
+    <div id="app">
       <main class="container">
         <p>
           Preencha abaixo o DDD e os primeiros dígitos do telefone, deixando os
@@ -35,9 +35,10 @@
         </p>
         <form>
           <div class="grid">
+            <input type="hidden" name="idd" value="55" />
             <input
               type="text"
-              name="number"
+              name="prefix"
               placeholder="DDD + Primeiros dígitos do telefone"
               aria-label="DDD + Primeiros dígitos do telefone"
               required
@@ -48,31 +49,37 @@
       </main>
     </div>
     <script>
-      function phoneList(prefix) {
+      function phoneList(idd, prefix) {
         const urlWA = "https://api.whatsapp.com/send?phone=";
         const urlTel = "tel:+";
-        const copytext = `Links para os telefones a partir de <strong>+${prefix}<big>00</big></strong> até <strong>+${prefix}<big>99</big></strong>`;
-        const description = document.querySelector("#description");
-        description.innerHTML = copytext;
+        const copytext = `Links para os telefones a partir de <strong>+${prefix}<big>00</big></strong> até <strong>+${prefix}<big>99</big></strong>:`;
+        const app = document.querySelector("#app");
 
-        let detailsList = "";
+        app.innerHTML = '<main class="container">';
+        app.innerHTML += "<p>";
+        app.innerHTML += copytext;
+        app.innerHTML += "</p>";
+        app.innerHTML += "</main>";
+
+        let details = "";
+
         for (i = 0; i <= 99; i++) {
           sufix = String(i).padStart(2, "0");
 
-          detailsList += "<details><summary>";
-          detailsList += `+${prefix}<big>${sufix}</big>`;
-          detailsList += "</summary><div class='grid'>";
-          detailsList += `<a role='button' class='mt-1rem' href='tel:+${prefix}${sufix}'>Telefone</a> `;
-          detailsList += `<a role='button' class='mt-1rem whatsapp' href='https://api.whatsapp.com/send?phone=${prefix}${sufix}'>WhatsApp</a>`;
-          detailsList += "</div></details>";
+          details += "<details><summary>";
+          details += `${prefix}<big>${sufix}</big>:`;
+          details += "</summary><div class='grid'>";
+          details += `<a role='button' class='mt-1rem' href='tel:+${prefix}${sufix}'>Telefone</a> `;
+          details += `<a role='button' class='mt-1rem whatsapp' href='https://api.whatsapp.com/send?phone=${prefix}${sufix}'>WhatsApp</a>`;
+          details += "</div></details>";
         }
 
-        let list = document.querySelector("#list");
-        list.innerHTML = detailsList;
+        app.innerHTML += details;
       }
       const params = new URL(document.location).searchParams;
-      const prefix = params.get("prefix") || "0";
-      phoneList(prefix);
+      const idd = params.get("idd");
+      const prefix = params.get("prefix");
+      if (idd && prefix) phoneList(idd, prefix);
     </script>
   </body>
 </html>
