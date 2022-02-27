@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Números do WhatsApp</title>
+    <title>Serial Caller</title>
     <link rel="stylesheet" href="css/pico.min.css" />
     <style>
       .mt-1rem {
@@ -17,9 +17,36 @@
     </style>
   </head>
   <body class="container">
-    <h1>Números do WhatsApp</h1>
-    <p id="description"></p>
-    <div id="list"></div>
+    <div id="app">
+      <header class="container">
+        <hgroup>
+          <h1>Serial Caller 📞⏩📞⏩</h1>
+          <h2>Ligue para números sequenciais de forma rápida</h2>
+        </hgroup>
+      </header>
+
+      <main class="container">
+        <p>
+          Preencha abaixo o DDD e os primeiros dígitos do telefone, deixando os
+          últimos dois de fora. O <b>Serial Caller</b> preencherá os últimos
+          dígitos de 00 até 99, gerando uma lista de links para você telefonar
+          ou abrir o WhatsApp diretamente.
+          <em>(Por enquanto, funciona apenas com números do Brasil.)</em>
+        </p>
+        <form>
+          <div class="grid">
+            <input
+              type="text"
+              name="number"
+              placeholder="DDD + Primeiros dígitos do telefone"
+              aria-label="DDD + Primeiros dígitos do telefone"
+              required
+            />
+            <button type="submit">Gerar Lista</button>
+          </div>
+        </form>
+      </main>
+    </div>
     <script>
       function phoneList(prefix) {
         const urlWA = "https://api.whatsapp.com/send?phone=";
